@@ -74,8 +74,8 @@ def form_data():
   pintxo_img2 = base64.b64encode(_pintxo_img.read())
   pintxo_img = repr(pintxo_img2)[2:-1]
 
-  insert_pintxo = "INSERT INTO PINTXO(pintxo_name, pintxo_description, pintxo_img)" "VALUES(%s, %s, %s)"
-  insert_contestant = "INSERT INTO CONTESTANTS(contestants_name, contestants_address, contestants_cp, contestants_town)" "VALUES(%s, %s, %s, %s)"
+  insert_pintxo = "INSERT INTO pintxo(pintxo_name, pintxo_description, pintxo_img)" "VALUES(%s, %s, %s)"
+  insert_contestant = "INSERT INTO contestants(contestants_name, contestants_address, contestants_cp, contestants_town)" "VALUES(%s, %s, %s, %s)"
   insert_votes = "INSERT INTO votes(votes_number)" "VALUES (0)"
 
   new_pintxo = (_pintxo_name, _pintxo_description, pintxo_img)
@@ -146,8 +146,8 @@ def update_pintxo_form(id):
     pintxo_img2 = base64.b64encode(pintxo_img.read())
     pintxo_img = repr(pintxo_img2)[2:-1]
 
-    update_pintxo = "UPDATE PINTXO SET pintxo_name=%s, pintxo_description=%s, pintxo_img=%s WHERE pintxo_id="+id
-    update_contestant = "UPDATE CONTESTANTS SET contestants_name=%s, contestants_address=%s, contestants_cp=%s, contestants_town=%s WHERE contestants_id="+id
+    update_pintxo = "UPDATE pintxo SET pintxo_name=%s, pintxo_description=%s, pintxo_img=%s WHERE pintxo_id="+id
+    update_contestant = "UPDATE contestants SET contestants_name=%s, contestants_address=%s, contestants_cp=%s, contestants_town=%s WHERE contestants_id="+id
   
     new_pintxo = (pintxo_name, pintxo_description, pintxo_img)
     new_contestant = (contestants_name, contestants_address, contestants_cp, contestants_town)
@@ -180,7 +180,7 @@ def add_pintxo():
     cursor = mydb.cursor()
     cursor = mydb.cursor(dictionary=True)
 
-    insert_pintxo = "INSERT INTO PINTXO(pintxo_name, pintxo_description)" "VALUES(%s, %s)"
+    insert_pintxo = "INSERT INTO pintxo(pintxo_name, pintxo_description)" "VALUES(%s, %s)"
 
     new_pintxo = (_pintxo_name, _pintxo_description)
     cursor.execute(insert_pintxo, new_pintxo)
