@@ -20,10 +20,10 @@ app.secret_key = "secret key"
 
 # Creating connection object
 mydb = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = "M1cb44kpr4",
-    database='final_project_schema'
+  host = "asuapretni.mysql.pythonanywhere-services.com",
+  user = "asuapretni",
+  password = "_M1y2sql",
+  database='asuapretni$final_db'
 )
  
 # Printing the connection object
@@ -51,15 +51,6 @@ def form_render():
 
   cursor.execute("SELECT * FROM pintxo p JOIN contestants c ON p.pintxo_id = c.contestants_id")
   pintxo_all = cursor.fetchall()
- 
-  print(pintxo_all)
-  
-
-  # cursor.execute("SELECT * FROM pintxo")
-  # pintxo_all = cursor.fetchall()
-  
-  # cursor.execute("SELECT * FROM contestants")
-  # contestants_all = cursor.fetchall()
 
   return render_template('form.html', pintxo_all=pintxo_all)
 
@@ -312,42 +303,6 @@ def get_votes_id(id):
   
   cursor.close() 
   mydb.close()
-
-# NOT WORKING _____________________
-def get_uuid():
-  return uuid4().hex
-
-@app.route('/customers', methods=["GET", "POST"])
-def get_customer():
-  email = request.json["customers_email"]
-  password = request.json["customers_password"]
-
-  cursor = mydb.cursor()
-  cursor = mydb.cursor(dictionary=True)
   
-  uuid = [email, password, get_uuid()]
-
-  insert_uuid = "INSERT INTO customers(customers_email, customers_password, customers_uuid)" "VALUES(%s, %s, %s)"
-  cursor.execute(insert_uuid, uuid)
-  mydb.commit()
-
-  customer = ("SELECT customers_email FROM customers")
-  cursor.execute(customer)
-  email = cursor.fetchone()
-  
-  if customer == email:
-    return jsonify({"error": "Customer exists"}), 401
-
-  uuid_pss = ("SELECT customers_uuid FROM customers")
-  hashed_password = bcrypt.generate_password_hash(uuid_pss)
-  
-  if customer is None:
-    return jsonify({"error": "Unauthorized Access"}), 401
-  
-  session["customers_uuid"] = uuid[2]
-  
-  return jsonify(email)
-  
-
 if __name__ == '__main__':
   app.run(debug=True)
